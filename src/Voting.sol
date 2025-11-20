@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.25;
 
-import {
-    Ownable,
-    Ownable2Step
-} from "@openzeppelin/contracts/access/Ownable2Step.sol";
+import {Ownable, Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 
-/** @title Voting Contract
+/**
+ *  @title Voting Contract
  *  @notice This contract allows users to vote for candidates.
  *  @notice The contract owner can add candidates, and each address can vote only once.
  *  @notice Anyone can call the getWinner function at any time to see the current leading candidate.
@@ -105,15 +103,11 @@ contract Voting is Ownable2Step {
      * @return winnerName The name of the winning candidate.
      * @return winnerVoteCount The number of votes received by the winning candidate.
      */
-    function getWinner()
-        public
-        view
-        returns (string memory winnerName, uint256 winnerVoteCount)
-    {
+    function getWinner() public view returns (string memory winnerName, uint256 winnerVoteCount) {
         uint256 highestVoteCount = 0;
         string memory leadingCandidate = "";
 
-        for (uint256 i = 0; i < candidates.length; ) {
+        for (uint256 i = 0; i < candidates.length;) {
             if (candidates[i].voteCount > highestVoteCount) {
                 highestVoteCount = candidates[i].voteCount;
                 leadingCandidate = candidates[i].name;

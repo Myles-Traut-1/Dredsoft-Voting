@@ -3,10 +3,7 @@ pragma solidity 0.8.25;
 
 import {Test} from "forge-std/Test.sol";
 import {Voting} from "../src/Voting.sol";
-import {
-    Ownable,
-    Ownable2Step
-} from "@openzeppelin/contracts/access/Ownable2Step.sol";
+import {Ownable, Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 
 import {DeployVoting} from "../script/DeployVoting.s.sol";
 
@@ -68,12 +65,7 @@ contract VotingTest is Test {
 
     function test_revert_addCandiaite_notOwner() public {
         vm.prank(voter1);
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                Ownable.OwnableUnauthorizedAccount.selector,
-                voter1
-            )
-        );
+        vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, voter1));
         voting.addCandidate("Charlie");
     }
 
@@ -165,8 +157,7 @@ contract VotingTest is Test {
         vm.prank(voter3);
         voting.vote(1);
 
-        (string memory winnerName, uint256 winnerVoteCount) = voting
-            .getWinner();
+        (string memory winnerName, uint256 winnerVoteCount) = voting.getWinner();
 
         assertEq(winnerName, "Bob");
         assertEq(winnerVoteCount, 2);
@@ -198,12 +189,7 @@ contract VotingTest is Test {
         address newOwner = makeAddr("newOwner");
 
         vm.prank(voter1);
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                Ownable.OwnableUnauthorizedAccount.selector,
-                voter1
-            )
-        );
+        vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, voter1));
         voting.transferOwnership(newOwner);
     }
 
